@@ -450,9 +450,10 @@ func PullControlPlaneImages(runtime utilruntime.ContainerRuntime, cfg *kubeadmap
 	images := images.GetControlPlaneImages(cfg)
 	for _, image := range images {
 		if err := runtime.PullImage(image); err != nil {
-			return errors.Wrapf(err, "failed to pull image %q", image)
+			fmt.Printf("failed to pull image %q, %v\n", image, err)
+		} else {
+			fmt.Printf("[config/images] Pulled %s\n", image)
 		}
-		fmt.Printf("[config/images] Pulled %s\n", image)
 	}
 	return nil
 }
